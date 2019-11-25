@@ -69,7 +69,7 @@ class Calculator extends Component {
                     </ul>
 
                     <span id="current-number">
-
+                        {this.state.data}
                     </span>
                 </div>
 
