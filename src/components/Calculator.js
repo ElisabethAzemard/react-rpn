@@ -7,7 +7,8 @@ class Calculator extends Component {
         super(props);
 
         this.state = {
-            data: []
+            data: [],
+            stack: []
         }
     }
 
@@ -62,7 +63,9 @@ class Calculator extends Component {
             <div>
                 <div id="screen">
                     <ul id="stack">
-
+                        { this.state.stack.map(function (stackElement, index) {
+                            return <li key={index}>{stackElement}</li>;
+                        })}
                     </ul>
 
                     <span id="current-number">
