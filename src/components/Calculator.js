@@ -52,7 +52,7 @@ class Calculator extends Component {
                     <li id="swap"> SWAP </li>
                     <li id="clear"> CLEAR </li>
                     <li id="clear"> DROP </li>
-                    <li id="entrer"> &larrhk; </li>
+                    <li id="enter"> &#8617; </li>
                 </ul>
 
             </div>
