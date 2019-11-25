@@ -19,11 +19,42 @@ class Calculator extends Component {
             number = '.';
         }
 
+        // add the number clicked to the data table
         this.setState((prevState) => ({
             data: [...prevState.data, number]
         }));
 
     }
+
+    handleSubmit = (event) => {
+
+        // prevent page reload
+        event.preventDefault();
+
+        // if data is empty, return
+        if (this.state.data.length < 1)
+            return;
+
+        // get digits from data,
+        // join them into a single string
+        // and turn them into a number
+        let stack = this.state.data.join('');
+
+        stack = Number(stack);
+
+        // empty data
+        this.setState((prevState) => ({
+            data: []
+        }));
+
+        // add the obtained number to the stack
+        this.setState((prevState) => ({
+            stack: [...prevState.stack, stack]
+        }));
+
+    }
+
+
 
     render() {
 
@@ -66,7 +97,7 @@ class Calculator extends Component {
                     <li id="swap"> SWAP </li>
                     <li id="clear"> CLEAR </li>
                     <li id="clear"> DROP </li>
-                    <li id="enter"> &#8617; </li>
+                    <li id="enter" onClick={this.handleSubmit}> &#8617; </li>
                 </ul>
 
             </div>
