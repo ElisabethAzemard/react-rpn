@@ -109,6 +109,7 @@ class Calculator extends Component {
 
     }
 
+    // ÷
     divide = () => {
 
         let stack = this.state.stack;
@@ -120,6 +121,20 @@ class Calculator extends Component {
 
         this.setState((prevState) => ({
             stack: [...prevState.stack, new_last_el]
+        }));
+
+    }
+
+    // SWAP
+    swap = () => {
+
+        let stack = this.state.stack;
+
+        var last_el = stack.pop();
+        var b_last_el = stack.pop();
+
+        this.setState((prevState) => ({
+            stack: [...prevState.stack, last_el, b_last_el]
         }));
 
     }
@@ -164,7 +179,7 @@ class Calculator extends Component {
                 </ul>
 
                 <ul id="action-buttons">
-                    <li id="swap"> SWAP </li>
+                    <li id="swap" onClick={this.swap}> SWAP </li>
                     <li id="clear"> CLEAR </li>
                     <li id="clear"> DROP </li>
                     <li id="enter" onClick={this.handleSubmit}> &#8617; </li>
