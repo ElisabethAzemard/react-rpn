@@ -27,6 +27,7 @@ class Calculator extends Component {
 
     }
 
+    // ENTER
     handleSubmit = (event) => {
 
         // prevent page reload
@@ -55,6 +56,7 @@ class Calculator extends Component {
 
     }
 
+    // ±
     switchSymbol = () => {
 
         let number = [ this.state.data * -1 ];
@@ -62,6 +64,19 @@ class Calculator extends Component {
         this.setState(() => ({
             data: number
         }))
+
+    }
+
+    // +
+    add = () => {
+
+        let stack = this.state.stack;
+
+        var new_last_el = stack.pop() + stack.pop();
+
+        this.setState((prevState) => ({
+            stack: [...prevState.stack, new_last_el]
+        }));
 
     }
 
@@ -98,7 +113,7 @@ class Calculator extends Component {
                 </ul>
 
                 <ul id="operator-buttons">
-                    <li value="add"> + </li>
+                    <li value="add" onClick={this.add}> + </li>
                     <li value="rem"> - </li>
                     <li value="mult"> * </li>
                     <li value="div"> ÷ </li>
