@@ -55,7 +55,15 @@ class Calculator extends Component {
 
     }
 
+    switchSymbol = () => {
 
+        let number = [ this.state.data * -1 ];
+
+        this.setState(() => ({
+            data: number
+        }))
+
+    }
 
     render() {
 
@@ -86,7 +94,7 @@ class Calculator extends Component {
                     <li value="10" onClick={this.handleClick}> . </li>
                     <li value="0" onClick={this.handleClick}> 0 </li>
 
-                    <li value="11"> ± </li>
+                    <li value="11" onClick={this.switchSymbol}> ± </li>
                 </ul>
 
                 <ul id="operator-buttons">
