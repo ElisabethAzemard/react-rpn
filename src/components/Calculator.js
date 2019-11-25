@@ -11,6 +11,20 @@ class Calculator extends Component {
         }
     }
 
+    handleClick = (event) => {
+
+        let number = event.target.value;
+
+        if (number === '10') {
+            number = '.';
+        }
+
+        this.setState((prevState) => ({
+            data: [...prevState.data, number]
+        }));
+
+    }
+
     render() {
 
         return (
@@ -26,18 +40,18 @@ class Calculator extends Component {
                 </div>
 
                 <ul id="input-buttons">
-                    <li value="7"> 7 </li>
-                    <li value="8"> 8 </li>
-                    <li value="9"> 9 </li>
-                    <li value="4"> 4 </li>
-                    <li value="5"> 5 </li>
-                    <li value="6"> 6 </li>
-                    <li value="1"> 1 </li>
-                    <li value="2"> 2 </li>
-                    <li value="3"> 3 </li>
+                    <li value="7" onClick={this.handleClick}> 7 </li>
+                    <li value="8" onClick={this.handleClick}> 8 </li>
+                    <li value="9" onClick={this.handleClick}> 9 </li>
+                    <li value="4" onClick={this.handleClick}> 4 </li>
+                    <li value="5" onClick={this.handleClick}> 5 </li>
+                    <li value="6" onClick={this.handleClick}> 6 </li>
+                    <li value="1" onClick={this.handleClick}> 1 </li>
+                    <li value="2" onClick={this.handleClick}> 2 </li>
+                    <li value="3" onClick={this.handleClick}> 3 </li>
+                    <li value="10" onClick={this.handleClick}> . </li>
+                    <li value="0" onClick={this.handleClick}> 0 </li>
 
-                    <li value="10"> . </li>
-                    <li value="0"> 0 </li>
                     <li value="11"> ± </li>
                 </ul>
 
