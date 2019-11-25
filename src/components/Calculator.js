@@ -156,6 +156,19 @@ class Calculator extends Component {
 
     }
 
+    // CLEAR last digit input from data
+    clear = () => {
+
+        let data = this.state.data;
+
+        data.pop();
+
+        this.setState(() => ({
+            data: [...data]
+        }));
+
+    }
+
     render() {
 
         return (
@@ -166,6 +179,7 @@ class Calculator extends Component {
                             return <li key={index}>{stackElement}</li>;
                         })}
                     </ul>
+                    <br />
 
                     <span id="current-number">
                         {this.state.data}
@@ -197,7 +211,7 @@ class Calculator extends Component {
 
                 <ul id="action-buttons">
                     <li id="swap" onClick={this.swap}> SWAP </li>
-                    <li id="clear"> CLEAR </li>
+                    <li id="clear" onClick={this.clear}> CLEAR </li>
                     <li id="clear" onClick={this.drop}> DROP </li>
                     <li id="enter" onClick={this.handleSubmit}> &#8617; </li>
                 </ul>
