@@ -96,6 +96,19 @@ class Calculator extends Component {
 
     }
 
+    // *
+    multiply = () => {
+
+        let stack = this.state.stack;
+
+        var new_last_el = stack.pop() * stack.pop();
+
+        this.setState((prevState) => ({
+            stack: [...prevState.stack, new_last_el]
+        }));
+
+    }
+
     render() {
 
         return (
@@ -131,7 +144,7 @@ class Calculator extends Component {
                 <ul id="operator-buttons">
                     <li value="add" onClick={this.add}> + </li>
                     <li value="rem" onClick={this.substract}> - </li>
-                    <li value="mult"> * </li>
+                    <li value="mult" onClick={this.multiply}> * </li>
                     <li value="div"> ÷ </li>
                 </ul>
 
