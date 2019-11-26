@@ -212,7 +212,7 @@ class Calculator extends Component {
                 <ul id="action-buttons">
                     <li id="swap" onClick={this.swap}> SWAP </li>
                     <li id="clear" onClick={this.clear}> CLEAR </li>
-                    <li id="clear" onClick={this.drop}> DROP </li>
+                    <li id="drop" onClick={this.drop}> DROP </li>
                     <li id="enter" onClick={this.handleSubmit}> &#8617; </li>
                 </ul>
 
