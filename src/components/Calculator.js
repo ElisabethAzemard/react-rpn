@@ -59,6 +59,10 @@ class Calculator extends Component {
     // ±
     switchSymbol = () => {
 
+        // if data is empty, return
+        if (this.state.data.length < 1)
+            return;
+
         let number = [ this.state.data * -1 ];
 
         this.setState(() => ({
@@ -72,6 +76,10 @@ class Calculator extends Component {
 
         let stack = this.state.stack;
 
+        // if stack has less than 2 elements, return
+        if (stack.length < 2)
+            return;
+
         var new_last_el = stack.pop() + stack.pop();
 
         this.setState((prevState) => ({
@@ -84,6 +92,10 @@ class Calculator extends Component {
     substract = () => {
 
         let stack = this.state.stack;
+
+        // if stack has less than 2 elements, return
+        if (stack.length < 2)
+            return;
 
         var last_el = stack.pop();
         var b_last_el = stack.pop();
@@ -101,6 +113,10 @@ class Calculator extends Component {
 
         let stack = this.state.stack;
 
+        // if stack has less than 2 elements, return
+        if (stack.length < 2)
+            return;
+
         var new_last_el = stack.pop() * stack.pop();
 
         this.setState((prevState) => ({
@@ -113,6 +129,10 @@ class Calculator extends Component {
     divide = () => {
 
         let stack = this.state.stack;
+
+        // if stack has less than 2 elements, return
+        if (stack.length < 2)
+            return;
 
         var last_el = stack.pop()
         var b_last_el = stack.pop()
@@ -130,6 +150,10 @@ class Calculator extends Component {
 
         let stack = this.state.stack;
 
+        // if stack has less than 2 elements, return
+        if (stack.length < 2)
+            return;
+
         var last_el = stack.pop();
         var b_last_el = stack.pop();
 
@@ -143,6 +167,10 @@ class Calculator extends Component {
     drop = () => {
 
         let stack = this.state.stack;
+
+        // if stack has less than 2 elements, return
+        if (stack.length < 2)
+            return;
 
         stack.pop();
 
@@ -160,6 +188,10 @@ class Calculator extends Component {
     clear = () => {
 
         let data = this.state.data;
+
+        // if stack has less than 2 elements, return
+        if (data.length < 1)
+            return;
 
         data.pop();
 
