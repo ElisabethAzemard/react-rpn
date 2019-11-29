@@ -14,7 +14,7 @@ class Calculator extends Component {
 
     _addToStack = stackElement => {
 
-        let item = stackElement.toFixed(2);
+        let item = Number(parseFloat(stackElement).toFixed(2));
 
         this.setState( prevState => ({
             stack: [...prevState.stack, item]
