@@ -2,224 +2,229 @@ import React, { Component } from 'react';
 
 class Calculator extends Component {
 
-    constructor(props) {
+  constructor(props) {
 
-        super(props);
+    super(props);
 
-        this.state = {
-            data: [],
-            stack: []
-        }
+    this.state = {
+      data: [],
+      stack: []
+    }
+  }
+
+  handleClick = (event) => {
+
+    let number = event.target.value;
+
+    if (number === '10') {
+      number = '.';
     }
 
-    handleClick = (event) => {
+    // add the number clicked to the data table
+    this.setState((prevState) => ({
+      data: [...prevState.data, number]
+    }));
 
-        let number = event.target.value;
+  }
 
-        if (number === '10') {
-            number = '.';
-        }
+  // ENTER
+  handleSubmit = (event) => {
 
-        // add the number clicked to the data table
-        this.setState((prevState) => ({
-            data: [...prevState.data, number]
-        }));
+    // prevent page reload
+    event.preventDefault();
 
-    }
+    // if data is empty, return
+    if (this.state.data.length < 1)
+    return;
 
-    // ENTER
-    handleSubmit = (event) => {
+    // get digits from data,
+    // join them into a single string
+    // and turn them into a number
+    let stack = this.state.data.join('');
 
-        // prevent page reload
-        event.preventDefault();
+    stack = Number(stack);
 
-        // if data is empty, return
-        if (this.state.data.length < 1)
-            return;
+    // empty data
+    this.setState((prevState) => ({
+      data: []
+    }));
 
-        // get digits from data,
-        // join them into a single string
-        // and turn them into a number
-        let stack = this.state.data.join('');
+    // add the obtained number to the stack
+    this.setState((prevState) => ({
+      stack: [...prevState.stack, stack]
+    }));
 
-        stack = Number(stack);
+  }
 
-        // empty data
-        this.setState((prevState) => ({
-            data: []
-        }));
+  // ±
+  switchSymbol = () => {
 
-        // add the obtained number to the stack
-        this.setState((prevState) => ({
-            stack: [...prevState.stack, stack]
-        }));
+    let number = [ this.state.data * -1 ];
 
-    }
+    this.setState(() => ({
+      data: number
+    }))
 
-    // ±
-    switchSymbol = () => {
+  }
 
-        let number = [ this.state.data * -1 ];
+  // +
+  add = () => {
 
-        this.setState(() => ({
-            data: number
-        }))
+    let stack = this.state.stack;
 
-    }
+    var new_last_el = stack.pop() + stack.pop();
 
-    // +
-    add = () => {
+    this.setState((prevState) => ({
+      stack: [...prevState.stack, new_last_el]
+    }));
 
-        let stack = this.state.stack;
+  }
 
-        var new_last_el = stack.pop() + stack.pop();
+  // -
+  substract = () => {
 
-        this.setState((prevState) => ({
-            stack: [...prevState.stack, new_last_el]
-        }));
+    let stack = this.state.stack;
 
-    }
+    var last_el = stack.pop();
+    var b_last_el = stack.pop();
 
-    // -
-    substract = () => {
+    var new_last_el = b_last_el - last_el;
 
-        let stack = this.state.stack;
+    this.setState((prevState) => ({
+      stack: [...prevState.stack, new_last_el]
+    }));
 
-        var last_el = stack.pop();
-        var b_last_el = stack.pop();
+  }
 
-        var new_last_el = b_last_el - last_el;
+  // *
+  multiply = () => {
 
-        this.setState((prevState) => ({
-            stack: [...prevState.stack, new_last_el]
-        }));
+    let stack = this.state.stack;
 
-    }
+    var new_last_el = stack.pop() * stack.pop();
 
-    // *
-    multiply = () => {
+    this.setState((prevState) => ({
+      stack: [...prevState.stack, new_last_el]
+    }));
 
-        let stack = this.state.stack;
+  }
 
-        var new_last_el = stack.pop() * stack.pop();
+  // ÷
+  divide = () => {
 
-        this.setState((prevState) => ({
-            stack: [...prevState.stack, new_last_el]
-        }));
+    let stack = this.state.stack;
 
-    }
+    var last_el = stack.pop()
+    var b_last_el = stack.pop()
 
-    // ÷
-    divide = () => {
+    var new_last_el = b_last_el / last_el;
 
-        let stack = this.state.stack;
+    this.setState((prevState) => ({
+      stack: [...prevState.stack, new_last_el]
+    }));
 
-        var last_el = stack.pop()
-        var b_last_el = stack.pop()
+  }
 
-        var new_last_el = b_last_el / last_el;
+  // SWAP last two elements in the stack
+  swap = () => {
 
-        this.setState((prevState) => ({
-            stack: [...prevState.stack, new_last_el]
-        }));
+    let stack = this.state.stack;
 
-    }
+    var last_el = stack.pop();
+    var b_last_el = stack.pop();
 
-    // SWAP last two elements in the stack
-    swap = () => {
+    this.setState((prevState) => ({
+      stack: [...prevState.stack, last_el, b_last_el]
+    }));
 
-        let stack = this.state.stack;
+  }
 
-        var last_el = stack.pop();
-        var b_last_el = stack.pop();
+  // DROP last element in the stack
+  drop = () => {
 
-        this.setState((prevState) => ({
-            stack: [...prevState.stack, last_el, b_last_el]
-        }));
+    let stack = this.state.stack;
 
-    }
+    stack.pop();
 
-    // DROP last element in the stack
-    drop = () => {
+    this.setState(() => ({
+      stack: []
+    }));
 
-        let stack = this.state.stack;
+    this.setState(() => ({
+      stack: [...stack]
+    }));
 
-        stack.pop();
+  }
 
-        this.setState(() => ({
-            stack: []
-        }));
+  // CLEAR last digit input from data
+  clear = () => {
 
-        this.setState(() => ({
-            stack: [...stack]
-        }));
+    let data = this.state.data;
 
-    }
+    data.pop();
 
-    // CLEAR last digit input from data
-    clear = () => {
+    this.setState(() => ({
+      data: [...data]
+    }));
 
-        let data = this.state.data;
+  }
 
-        data.pop();
+  render() {
 
-        this.setState(() => ({
-            data: [...data]
-        }));
+    return (
+      <div>
+        <div id="screen">
+          <ul id="stack">
+            { this.state.stack.map(function (stackElement, index) {
+              return <li key={index}>{stackElement}</li>;
+              })}
+            </ul>
 
-    }
+            <span id="current-number">
+              {this.state.data}
+            </span>
+          </div>
 
-    render() {
+          <div id="buttons">
 
-        return (
-            <div>
-                <div id="screen">
-                    <ul id="stack">
-                        { this.state.stack.map(function (stackElement, index) {
-                            return <li key={index}>{stackElement}</li>;
-                        })}
-                    </ul>
-                    <br />
+            <div class="column">
 
-                    <span id="current-number">
-                        {this.state.data}
-                    </span>
-                </div>
+              <ul id="action-buttons">
+                <li id="swap" onClick={this.swap}> SWAP </li>
+                <li id="clear" onClick={this.clear}> AC </li>
+                <li id="drop" onClick={this.drop}> DROP </li>
+              </ul>
 
-                <ul id="input-buttons">
-                    <li value="7" onClick={this.handleClick}> 7 </li>
-                    <li value="8" onClick={this.handleClick}> 8 </li>
-                    <li value="9" onClick={this.handleClick}> 9 </li>
-                    <li value="4" onClick={this.handleClick}> 4 </li>
-                    <li value="5" onClick={this.handleClick}> 5 </li>
-                    <li value="6" onClick={this.handleClick}> 6 </li>
-                    <li value="1" onClick={this.handleClick}> 1 </li>
-                    <li value="2" onClick={this.handleClick}> 2 </li>
-                    <li value="3" onClick={this.handleClick}> 3 </li>
-                    <li value="10" onClick={this.handleClick}> . </li>
-                    <li value="0" onClick={this.handleClick}> 0 </li>
+              <ul id="input-buttons">
+                <li value="7" onClick={this.handleClick}> 7 </li>
+                <li value="8" onClick={this.handleClick}> 8 </li>
+                <li value="9" onClick={this.handleClick}> 9 </li>
+                <li value="4" onClick={this.handleClick}> 4 </li>
+                <li value="5" onClick={this.handleClick}> 5 </li>
+                <li value="6" onClick={this.handleClick}> 6 </li>
+                <li value="1" onClick={this.handleClick}> 1 </li>
+                <li value="2" onClick={this.handleClick}> 2 </li>
+                <li value="3" onClick={this.handleClick}> 3 </li>
+                <li value="10" onClick={this.handleClick}> . </li>
+                <li value="0" onClick={this.handleClick}> 0 </li>
 
-                    <li value="11" onClick={this.switchSymbol}> ± </li>
-                </ul>
-
-                <ul id="operator-buttons">
-                    <li value="add" onClick={this.add}> + </li>
-                    <li value="rem" onClick={this.substract}> - </li>
-                    <li value="mult" onClick={this.multiply}> * </li>
-                    <li value="div" onClick={this.divide}> ÷ </li>
-                </ul>
-
-                <ul id="action-buttons">
-                    <li id="swap" onClick={this.swap}> SWAP </li>
-                    <li id="clear" onClick={this.clear}> CLEAR </li>
-                    <li id="drop" onClick={this.drop}> DROP </li>
-                    <li id="enter" onClick={this.handleSubmit}> &#8617; </li>
-                </ul>
-
+                <li value="11" onClick={this.switchSymbol}> ± </li>
+              </ul>
             </div>
+            <div class="column">
+              <ul id="operator-buttons">
+                <li value="add" onClick={this.add}> + </li>
+                <li value="rem" onClick={this.substract}> - </li>
+                <li value="mult" onClick={this.multiply}> * </li>
+                <li value="div" onClick={this.divide}> ÷ </li>
+                <li id="enter" onClick={this.handleSubmit}> &#8617; </li>
+                </ul>
+              </div>
+            </div>
+          </div>
         )
+      }
+
     }
 
-}
-
-export default Calculator;
+    export default Calculator;
